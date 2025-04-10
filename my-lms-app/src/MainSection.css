@@ -1,0 +1,16 @@
+div#mainSection {
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+    
+    margin: 20px auto;
+    max-width: 90%;
+}
+
+div#mainSection h2 {
+    color: #004080;
+}
+
+div#mainSection p {
+    font-size: 18px;
+}
