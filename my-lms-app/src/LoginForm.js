@@ -84,6 +84,7 @@ function LoginForm() {
                     <div className='forgot-password-container'>
                         <br></br>
                         <a href='' id='forgot-password'>Forgot Password</a>
+                        <a href='/Signup' id='signup'>Create Account</a>
                     </div>
                 </form>
                 <AuthMessage/>

@@ -1,0 +1,57 @@
+.password-container, .username-container, .email-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-title{
+    color: #003366;
+    text-align: center;
+    
+}
+
+.signup-button{
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    margin: auto;
+    opacity: 0.5;
+    width: 89px;
+    margin-top: 15px;
+    
+  
+}
+
+.signup-button:hover{
+    background-color: #45A049;
+    opacity: 1.0;
+}
+
+
+#password, #username, #email, #confirm-password{
+    background-color: lightyellow;
+    padding: 10px;
+    border-radius: 5px;
+    border: 3px solid;
+    border-color: darkgray;
+    text-align: center;
+    margin: 12px;
+}
+
+
+.signup{
+    background-color: #d4d4d4;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    text-align: center;
+    padding: 30px;
+    margin-left: 150px;
+    margin-right: 150px;
+    border-radius: 30px;
+    box-shadow: 5px 5px 8px #999999;
+    margin-bottom: 30px;
+}
