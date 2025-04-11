@@ -67,6 +67,50 @@ def courses():
             print(f'{i}: {e}')
         return jsonify(data)
     
+    
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+
+    for student in students.values():
+        if student["username"] == username:
+            if student["password"] == password:
+                return jsonify({"message": "Login successful!"}), 200
+            else:
+                return jsonify({"message": "Incorrect password."}), 401
+
+    return jsonify({"message": "Username not found."}), 404
+
+
+@app.route('/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    email = data.get('email')
+
+    if not all([username, password, email]):
+        return jsonify({"message": "Missing required fields."}), 400
+
+    for student in students.values():
+        if student["username"] == username:
+            return jsonify({"message": "Username is already taken."}), 409
+
+    new_id = str(len(students) + 1)
+
+    students[new_id] = {
+        "username": username,
+        "password": password,
+        "email": email,
+        "enrolled_courses": []
+    }
+
+    return jsonify({"message": "User registered successfully."}), 200
+
+
+    
 
 if __name__ == '__main__':
     app.run()
