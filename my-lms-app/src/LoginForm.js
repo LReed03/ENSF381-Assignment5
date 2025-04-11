@@ -62,7 +62,7 @@ function LoginForm() {
             }, 2000);
         } else {
             setMessage('Invalid username or password.');
-            setMessageType('error');
+            setMessageType('failure');
         }
     };
 
@@ -84,6 +84,7 @@ function LoginForm() {
                     <div className='forgot-password-container'>
                         <br></br>
                         <a href='' id='forgot-password'>Forgot Password</a>
+                        <br></br>
                         <a href='/Signup' id='signup'>Create Account</a>
                     </div>
                 </form>

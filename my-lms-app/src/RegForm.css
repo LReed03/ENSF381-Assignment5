@@ -55,3 +55,12 @@
     box-shadow: 5px 5px 8px #999999;
     margin-bottom: 30px;
 }
+
+#dynamicBox{
+    padding: 15px;
+    text-align: center;
+    border: 2px solid gray;
+    width: 50%;
+    margin: auto;
+    margin-bottom: 15px;
+}
