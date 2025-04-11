@@ -16,7 +16,7 @@ function CoursesPage() {
             const response = await fetch(backendEndpoint, {
                 method: 'GET'
             });
-            const data = response.json();
+            const data = await response.json();
             console.log(JSON.stringify(data))
             return data.results;
         } catch(error) {
