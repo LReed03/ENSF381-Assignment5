@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useContext } from 'react';
 import EnrolledCourse from './EnrolledCourse';
 import { enrolledContext } from './CoursesPage';
 import './EnrollmentList.css'
 
 function EnrollmentList() {
-    const { enrolledCourse } = useContext(enrolledContext);
+    const [courses, setCourses] = useState([])
+    async function fetchCourses() {
+        const backendEndpoint = 'http://127.0.0.1:5000/student_courses/'
+        try {
+            const response = await fetch(backendEndpoint, {
+                method: 'GET'
+            });
+            const data = await response.json();
+            setCourses(data.results);
+        } catch(error) {
+            console.error('Error: ', error);
+        } 
+    } 
     const totalCredits = enrolledCourse.length * 3;
     return(
         <div>

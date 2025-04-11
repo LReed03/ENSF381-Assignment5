@@ -65,6 +65,13 @@ def courses():
         data = {"results": json.load(f)}
         return jsonify(data)
     
+@app.route('/student_courses/<student_id>', methods= ['GET'])
+def student_courses(student_id):
+    for e in students:
+        if e['id'] == student_id:
+            data = {'results': e['enrolled_courses']}
+            return jsonify(data)
+    
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
