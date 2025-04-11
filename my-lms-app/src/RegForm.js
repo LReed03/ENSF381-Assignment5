@@ -15,6 +15,43 @@ function RegForm(){
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [confirmPasswordValid, setConfirmPasswordValid] = useState();
 
+    async function studentReg() {
+        const backendEndpoint = 'http://127.0.0.1:5000/register';
+        try {
+            const response = await fetch(backendEndpoint, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                    email,
+                }),
+            });
+    
+            const data = await response.json();
+            setMessage(data.message || "Something went wrong");
+    
+            if (response.ok) {
+                setSuccess(true);
+                setTimeout(() => {
+                    window.location.href = "/Login";
+                }, 2000);
+            } else {
+                setSuccess(false);
+            }
+    
+        } catch (error) {
+            console.error("Error registering user:", error);
+            setMessage("Failed to connect to the server.");
+            setSuccess(false);
+        }
+    
+        setFormSubmitted(true);
+    }
+    
+
     function validateUserName(){
         let usernameRegex = /^[a-zA-Z][a-zA-Z0-9_-]{2,19}$/;
         if(usernameRegex.test(username)){
@@ -130,12 +167,7 @@ function RegForm(){
         let emailValid = validateEmail();
 
         if(usernameValid && passwordValid && confirmPasswordValid && emailValid){
-            setMessage("Signup successful! Redirecting to login...");
-            setTimeout(() => {
-                window.location.href = "/Login";
-            }, 2000);
-            setSuccess(true);
-            setFormSubmitted(true);
+            studentReg();
 
         }
         else{
