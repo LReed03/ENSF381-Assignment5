@@ -9,62 +9,46 @@ export const AuthContext = createContext();
 function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [usernames, setUsernames] = useState([]);
-    const [passwords, setPasswords] = useState([]);
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
 
-    async function fetchData() {
+    async function loginFetch() {
+        const backendEndpoint = 'http://127.0.0.1:5000/login';
         try {
-            const response = await fetch('https://jsonplaceholder.typicode.com/users');
-            const users = await response.json();
-
-            const fetchedUsernames = [];
-            const fetchedPasswords = [];
-
-            users.forEach(user => {
-                fetchedUsernames.push(user.username);
-                fetchedPasswords.push(user.email); 
+            const response = await fetch(backendEndpoint, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                }),
             });
-
-            setUsernames(fetchedUsernames);
-            setPasswords(fetchedPasswords);
-        } catch (error) {
-            console.error('Error fetching users:', error);
+    
+            const data = await response.json();
+            setMessage(data.message);
+            setMessageType(response.ok ? "success" : "error");
+    
+            if (response.ok) {
+                setTimeout(() => {
+                    window.location.href = "/Courses";
+                }, 2000);
+            }
+        } 
+        catch (error) {
+            console.error("Login error:", error);
+            setMessage("Server error. Please try again later.");
+            setMessageType("error");
         }
     }
-
-    useEffect(() => {
-        fetchData();
-    }, []);
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        if (!username || !password) {
-            setMessage('Username and password cannot be empty.');
-            setMessageType('error');
-            return;
-        }
-
-        if (password.length < 8) {
-            setMessage('Password must be at least 8 characters.');
-            setMessageType('error');
-            return;
-        }
-
-        const index = usernames.indexOf(username);
-        if (index !== -1 && passwords[index] === password) {
-            setMessage('Login successful!');
-            setMessageType('success');
-            setTimeout(() => {
-                window.location.href = '/Courses';
-            }, 2000);
-        } else {
-            setMessage('Invalid username or password.');
-            setMessageType('failure');
-        }
+        loginFetch();
     };
+    
 
     return (
         <AuthContext.Provider value={{ message, setMessage, messageType, setMessageType }}>
