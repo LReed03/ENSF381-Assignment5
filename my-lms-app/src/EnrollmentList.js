@@ -13,12 +13,12 @@ function EnrollmentList() {
                 method: 'GET'
             });
             const data = await response.json();
-            setEnrollesCourses(data.results);
+            setEnrolledCourses(data.results);
         } catch(error) {
             console.error('Error: ', error);
         } 
     } 
-    const totalCredits = enrolledCourse.length * 3;
+    const totalCredits = enrolledCourses.length * 3;
     return(
         <div>
             <h2>Enrollment List</h2>

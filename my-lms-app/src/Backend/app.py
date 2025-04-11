@@ -20,7 +20,7 @@ students = [{
 }]
 
 app = Flask(__name__)
-CORS(app)
+CORS(app=app, resources={r"*": {"origins": "*"}})
 
 @app.route('/enroll/<student_id>', methods=['POST'])
 def enroll(student_id):

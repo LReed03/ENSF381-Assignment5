@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useState, useEffect} from 'react';
 import AuthMessage from './AuthMessage';
 
@@ -6,11 +6,15 @@ import './LoginForm.css';
 
 export const AuthContext = createContext();
 
+export const studentIdContext = createContext();
+
 function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
+
+    const [studentId, setStudentId] = useState();
 
     async function loginFetch() {
         const backendEndpoint = 'http://127.0.0.1:5000/login';
