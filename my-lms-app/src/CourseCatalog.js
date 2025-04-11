@@ -1,12 +1,11 @@
 import React from 'react';
 
 import CourseItem from './CourseItem';
-import Courses from './data/courses';
 
 import './CourseCatalog.css'
 
-function CourseCatalog() {
-    const courseItem = Courses.map((course) => <CourseItem id={course.id} name={course.name} instructor={course.instructor} description={course.description}/>);
+function CourseCatalog(courses) {
+    const courseItem = courses.map((course) => <CourseItem id={course.id} name={course.name} instructor={course.instructor} description={course.description}/>);
     return (
         <div>
             <h2>Course Catalog</h2>

@@ -1,29 +1,48 @@
 import {React, useEffect, useState} from 'react';
-import Courses from './data/courses';
-import Testimonials from './data/testimonials';
 
 import './MainSection.css';
 
 function MainSection() {
-    const course1 = Courses[4]; 
-    const course2 = Courses[2];
-    const course3 = Courses[5]; 
-    const [testimonial1, setTestimonial1] = useState(Testimonials[0]);
-    const [testimonial2, setTestimonial2] = useState(Testimonials[0]);
-    useEffect(() => {
-        let num1 = Math.floor(Math.random() * Testimonials.length)
-        const T1 = Testimonials[num1];
-        let num2 = Math.floor(Math.random() * Testimonials.length)
-        while (num1 === num2) {
-            num2 = Math.floor(Math.random() * Testimonials.length)
-        }
-        const T2 = Testimonials[num2];
-        setTestimonial1(T1);
-        setTestimonial2(T2);
-    }, []);
+    const course1 = {
+        id: 1,
+        name: "Web Development",
+        instructor: "Dr. John Smith",
+        description: "Master HTML, CSS, and JavaScript.",
+        duration: "8 weeks",
+        image: "images/course1.jpg"
+    }
+    const course2 = {
+        id: 2,
+        name: "Object Oriented Development",
+        instructor: "Dr. John Jones",
+        description: "Learn the principals of object oriented development.",
+        duration: "8 weeks",
+        image: "images/course1.jpg"
+    }
+    const course3 = {
+        id: 3,
+        name: "Computer Organization",
+        instructor: "Dr. James Howlett",
+        description: "Learn the basics of RISC V architecture and RISC V assembly.",
+        duration: "8 weeks",
+        image: "images/course1.jpg"
+    }
+    const testimonial1 = {
+        studentName: "Alice Johnson",
+        courseName: "Web Development",
+        review: "Excellent course structure!",
+        rating: 5
+    }
+    const testimonial2 = {
+        studentName: "Doreen Green",
+        courseName: "Computer Organization",
+        review: "The course was very well organized.",
+        rating: 4
+    }
 
     var stars1 = "★".repeat(testimonial1.rating) + "☆".repeat(5 - testimonial1.rating);
     var stars2 = "★".repeat(testimonial2.rating) + "☆".repeat(5 - testimonial2.rating);
+    
 
     return (
         <div id="mainSection">

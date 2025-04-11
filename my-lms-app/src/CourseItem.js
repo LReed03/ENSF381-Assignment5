@@ -1,6 +1,5 @@
 import {React, useState, useContext} from 'react';
 import courselogo from './images/course2.jpg';
-import Courses from './data/courses';
 import { enrolledContext } from './CoursesPage';
 import './CourseItem.css'
 
