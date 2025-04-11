@@ -9,7 +9,7 @@ import EnrollmentList from './EnrollmentList';
 export const enrolledContext = createContext();
 
 function CoursesPage() {
-
+    const [courses, setCourses] = useState([]);
     async function fetchCourses() {
         const backendEndpoint = 'http://127.0.0.1:5000/Courses'
         try {
@@ -17,13 +17,13 @@ function CoursesPage() {
                 method: 'GET'
             });
             const data = await response.json();
-            console.log(JSON.stringify(data))
-            return data.results;
+            setCourses(data.results);
         } catch(error) {
             console.error('Error: ', error);
-        }
-    }
-    const courses = fetchCourses();
+        } 
+    } 
+    useEffect(() => {fetchCourses();},[]);
+    console.log(courses);
     const [enrolledCourse, setEnrolledCourses] = useState(() => {
         const stored = localStorage.getItem('enrolledCourses');
         return stored ? JSON.parse(stored) : [];
@@ -37,7 +37,7 @@ function CoursesPage() {
             <Header />
             <div className="content">
                 <enrolledContext.Provider value={{enrolledCourse, setEnrolledCourses}}>
-                    <CourseCatalog courses={courses}/>
+                    <CourseCatalog courses={courses} />
                     <EnrollmentList />
                 </enrolledContext.Provider>
             </div>

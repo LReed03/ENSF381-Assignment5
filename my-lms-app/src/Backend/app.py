@@ -63,9 +63,9 @@ def drop(student_id):
 def courses():
     with open('data/courses.json', 'r') as f:
         data = {"results": json.load(f)}
-        for i, e in enumerate(data['results']):
-            print(f'{i}: {e}')
         return jsonify(data)
+    
+
     
 
 if __name__ == '__main__':

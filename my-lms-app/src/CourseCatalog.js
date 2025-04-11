@@ -4,8 +4,8 @@ import CourseItem from './CourseItem';
 
 import './CourseCatalog.css'
 
-function CourseCatalog(courses) {
-    const courseItem = courses.map((course) => <CourseItem id={course.id} name={course.name} instructor={course.instructor} description={course.description}/>);
+function CourseCatalog(props) {
+    const courseItem = props.courses.map((course) => <CourseItem id={course.id} name={course.name} instructor={course.instructor} description={course.description}/>);
     return (
         <div>
             <h2>Course Catalog</h2>
