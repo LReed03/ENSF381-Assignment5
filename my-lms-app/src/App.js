@@ -5,7 +5,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Homepage from './Homepage';
 import CoursesPage from './CoursesPage';
 import Login from './Login';
-import Signup from './Signup';
+import SignupPage from './SignupPage';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<Homepage />}/>
           <Route path="/Courses" element={<CoursesPage />}/>
           <Route path="/Login" element={<Login />}/>
-          <Route path ="/Signup" element={<Signup/>}/>
+          <Route path ="/Signup" element={<SignupPage/>}/>
       </Routes>
     </BrowserRouter>
   );

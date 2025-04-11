@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 import RegForm from './RegForm';
 
-function Signup(){
+function SignupPage(){
     return(
         <div>
             <Header/>
@@ -15,4 +15,4 @@ function Signup(){
     )
 }
 
-export default Signup;
+export default SignupPage;
