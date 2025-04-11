@@ -198,7 +198,7 @@ function RegForm(){
                         <label for="email">Email:</label>
                         <input type="text" id="email" name="email" onChange={(e) => setEmail(e.target.value)}></input>
                     </div>
-                    <button class="signup-button" onclick="signup()">Sign Up</button>
+                    <button class="signup-button">Sign Up</button>
                 </div>
             </form>
             {formSubmitted && (
