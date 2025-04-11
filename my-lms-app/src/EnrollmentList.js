@@ -5,7 +5,7 @@ import { enrolledContext } from './CoursesPage';
 import './EnrollmentList.css'
 
 function EnrollmentList() {
-    const [courses, setCourses] = useState([])
+    const [enrolledCourses, setEnrolledCourses] = useState([])
     async function fetchCourses() {
         const backendEndpoint = 'http://127.0.0.1:5000/student_courses/'
         try {
@@ -13,7 +13,7 @@ function EnrollmentList() {
                 method: 'GET'
             });
             const data = await response.json();
-            setCourses(data.results);
+            setEnrollesCourses(data.results);
         } catch(error) {
             console.error('Error: ', error);
         } 
@@ -23,7 +23,7 @@ function EnrollmentList() {
         <div>
             <h2>Enrollment List</h2>
             <div className='EnrollmentList'>
-                {enrolledCourse.map((course, index) => (
+                {enrolledCourses.map((course, index) => (
                 <EnrolledCourse name={course.name} course={course} />))}
             </div>
             <p>Total Credit Hours: {totalCredits}</p>
