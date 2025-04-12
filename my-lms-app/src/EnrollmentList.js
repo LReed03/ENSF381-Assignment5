@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import EnrolledCourse from './EnrolledCourse';
-import { enrolledContext } from './CoursesPage';
 import './EnrollmentList.css'
-import { useLocation } from 'react-router-dom';
+import {enrolledCourseContext} from './CoursesPage';
 
 function EnrollmentList(props) {
-    const [enrolledCourses, setEnrolledCourses] = useState([])
+    const {setEnrolledCourses, enrolledCourses} = useContext(enrolledCourseContext)
     const studentId = props.studentId;
     async function fetchCourses() {
         try {
@@ -20,6 +19,10 @@ function EnrollmentList(props) {
         } 
     } 
     useEffect(() => {fetchCourses();},[])
+    if (!enrolledCourses || enrolledCourses.length === 0) {
+        return <p>No enrolled courses yet.</p>;
+      }
+      
     const totalCredits = enrolledCourses.length * 3;
     return(
         <div>

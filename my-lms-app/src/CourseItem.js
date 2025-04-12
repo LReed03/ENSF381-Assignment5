@@ -1,12 +1,12 @@
-import {React, useState, useContext} from 'react';
+import {React, useState, useContext, useEffect} from 'react';
 import courselogo from './images/course2.jpg';
-import { enrolledContext } from './CoursesPage';
 import './CourseItem.css'
-import { useLocation } from 'react-router-dom';
+import {enrolledCourseContext} from './CoursesPage';
 
 function CourseItem(props) {
 
     const [showDescription, setShowDescription] = useState(false);
+    const {setEnrolledCourses, enrolledCourses} = useContext(enrolledCourseContext)
 
     function hover(){
         setShowDescription(true);
@@ -16,10 +16,9 @@ function CourseItem(props) {
         setShowDescription(false);
     }
 
-    function addClass() {
+    async function addClass() {
       console.log(props.studentId);
-      console.log("hello");
-      fetch(`http://127.0.0.1:5000/enroll/${props.studentId}`, {
+      const response = await fetch(`http://127.0.0.1:5000/enroll/${props.studentId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -33,9 +32,17 @@ function CourseItem(props) {
           image: props.image
         })
       });
-      window.location.reload();
+      const data = await response.json();
+      if (data.result === "You're already enrolled in this course!" || data.result === "Student not found"){
+        alert(data.result)
+      }
+      else{
+        console.log(data.result);
+        setEnrolledCourses(data.enrolled_courses);
+
+      }
     }
-      
+  useEffect(() =>{},[enrolledCourses])
 
     return (
         <div className="CourseItem" onMouseEnter={hover} onMouseLeave={outHover}>

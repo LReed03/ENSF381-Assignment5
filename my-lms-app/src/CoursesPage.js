@@ -7,7 +7,10 @@ import CourseCatalog from './CourseCatalog';
 import EnrollmentList from './EnrollmentList';
 import { useLocation } from 'react-router-dom';
 
+export const enrolledCourseContext = createContext();
+
 function CoursesPage() {
+    const [enrolledCourses, setEnrolledCourses] = useState([])
     const location = useLocation();
     const studentId = location.state.studentId
     const [courses, setCourses] = useState([]);
@@ -25,14 +28,16 @@ function CoursesPage() {
     } 
     useEffect(() => {fetchCourses();},[]);
     return (
-        <div className="courses-page">
-            <Header />
-            <div className="content">
-                <CourseCatalog courses={courses} studentId={studentId}/>
-                <EnrollmentList studentId={studentId} />
+        <enrolledCourseContext.Provider value = {{enrolledCourses, setEnrolledCourses}}>
+            <div className="courses-page">
+                <Header />
+                <div className="content">
+                    <CourseCatalog courses={courses} studentId={studentId}/>
+                    <EnrollmentList studentId={studentId} />
+                </div>
+                <Footer />
             </div>
-            <Footer />
-        </div>
+        </enrolledCourseContext.Provider>
     );
 }
 

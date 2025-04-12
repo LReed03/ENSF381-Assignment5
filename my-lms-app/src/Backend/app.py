@@ -29,7 +29,8 @@ def enroll(student_id):
         if e['id'] == int(student_id):
             if data not in e['enrolled_courses']:
                 e["enrolled_courses"].append(data)
-                return jsonify({"result": "Enrollement successful!"})
+                return jsonify({"result": "Enrollement successful!",
+                                "enrolled_courses": e["enrolled_courses"]})
             else:
                 return jsonify({"result": "You're already enrolled in this course!"})
     return jsonify({"result": "Student not found"}), 404
@@ -37,9 +38,20 @@ def enroll(student_id):
 
 @app.route('/drop/<student_id>', methods=['DELETE'])
 def drop(student_id):
-    global students
-    students = [student for student in students if student['id'] != student_id]
-    return jsonify({"message": "Person deleted successfully"})
+    data = request.get_json()
+    course_id = data.get("id")
+
+    for e in students:
+        if e['id'] == int(student_id):
+            for course in e['enrolled_courses']:
+                if course['id'] == course_id:
+                    e['enrolled_courses'].remove(course)
+                    return jsonify({"result": "Enrollment dropped!",
+                                    "enrolled_courses": e["enrolled_courses"]})
+            return jsonify({"result": "Course not found in enrolled courses!"}), 400
+
+    return jsonify({"result": "Course not found in enrolled courses!"}), 404
+
 
 
 @app.route('/Courses', methods=['GET'])
