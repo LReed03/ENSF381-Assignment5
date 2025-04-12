@@ -8,7 +8,7 @@ function EnrollmentList(props) {
     const {setEnrolledCourses, enrolledCourses} = useContext(enrolledCourseContext)
     const studentId = props.studentId;
     async function fetchCourses() {
-        if (studentId === null){
+        if (studentId === null || 0){
             return <p>No enrolled courses yet.</p>;
         }
         try {
