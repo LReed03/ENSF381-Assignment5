@@ -3,10 +3,9 @@ import { useState, useEffect} from 'react';
 import AuthMessage from './AuthMessage';
 
 import './LoginForm.css';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
-
-export const studentIdContext = createContext();
 
 function LoginForm() {
     const [username, setUsername] = useState('');
@@ -14,7 +13,7 @@ function LoginForm() {
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
 
-    const [studentId, setStudentId] = useState();
+    const navigate = useNavigate();
 
     async function loginFetch() {
         const backendEndpoint = 'http://127.0.0.1:5000/login';
@@ -36,7 +35,11 @@ function LoginForm() {
     
             if (response.ok) {
                 setTimeout(() => {
-                    window.location.href = "/Courses";
+                    navigate('/Courses', {
+                        state: {
+                            studentId : data.studentId
+                        }
+                    })
                 }, 2000);
             }
         } 

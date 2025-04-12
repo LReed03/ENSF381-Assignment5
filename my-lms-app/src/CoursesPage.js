@@ -5,10 +5,11 @@ import Footer from './Footer';
 
 import CourseCatalog from './CourseCatalog';
 import EnrollmentList from './EnrollmentList';
-
-export const enrolledContext = createContext();
+import { useLocation } from 'react-router-dom';
 
 function CoursesPage() {
+    const location = useLocation();
+    const studentId = location.state.studentId
     const [courses, setCourses] = useState([]);
     async function fetchCourses() {
         const backendEndpoint = 'http://127.0.0.1:5000/Courses'
@@ -23,23 +24,12 @@ function CoursesPage() {
         } 
     } 
     useEffect(() => {fetchCourses();},[]);
-    console.log(courses);
-    const [enrolledCourse, setEnrolledCourses] = useState(() => {
-        const stored = localStorage.getItem('enrolledCourses');
-        return stored ? JSON.parse(stored) : [];
-      });
-    useEffect(() => {
-        localStorage.setItem('enrolledCourses', JSON.stringify(enrolledCourse));
-    }, [enrolledCourse]);
-
     return (
         <div className="courses-page">
             <Header />
             <div className="content">
-                <enrolledContext.Provider value={{enrolledCourse, setEnrolledCourses}}>
-                    <CourseCatalog courses={courses} />
-                    <EnrollmentList />
-                </enrolledContext.Provider>
+                <CourseCatalog courses={courses} studentId={studentId}/>
+                <EnrollmentList studentId={studentId} />
             </div>
             <Footer />
         </div>

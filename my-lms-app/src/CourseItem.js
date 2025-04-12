@@ -2,9 +2,10 @@ import {React, useState, useContext} from 'react';
 import courselogo from './images/course2.jpg';
 import { enrolledContext } from './CoursesPage';
 import './CourseItem.css'
+import { useLocation } from 'react-router-dom';
 
 function CourseItem(props) {
-    const { enrolledCourse, setEnrolledCourses } = useContext(enrolledContext);
+
     const [showDescription, setShowDescription] = useState(false);
 
     function hover(){
@@ -16,21 +17,24 @@ function CourseItem(props) {
     }
 
     function addClass() {
-        let duplicate = false;
-      
-        for (let i = 0; i < enrolledCourse.length; i++) {
-          if (enrolledCourse[i].id === props.id) {
-            duplicate = true;
-            break;
-          }
-        }
-      
-        if (!duplicate) {
-          setEnrolledCourses([...enrolledCourse, props]);
-        } else {
-          alert("You're already enrolled in this course!");
-        }
-      }
+      console.log(props.studentId);
+      console.log("hello");
+      fetch(`http://127.0.0.1:5000/enroll/${props.studentId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: props.id,
+          name: props.name,
+          instructor: props.instructor,
+          description: props.instructor,
+          duration: props.duration,
+          image: props.image
+        })
+      });
+      window.location.reload();
+    }
       
 
     return (

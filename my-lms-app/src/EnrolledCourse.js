@@ -1,31 +1,28 @@
 import React from 'react';
 import courselogo from './images/course1.jpg';
-import { useContext } from 'react';
-import { enrolledContext } from './CoursesPage';
 import './EnrolledCourse.css';
 
 function EnrolledCourse(props) {
-    const { enrolledCourse, setEnrolledCourses } = useContext(enrolledContext);
-
     function handleDrop() {
-        const copy = [...enrolledCourse]; 
-      
-        for (let i = 0; i < copy.length; i++) {
-          if (copy[i].name === props.course.name) {
-            copy.splice(i, 1); 
-            break; 
-          }
-        }
-      
-        setEnrolledCourses(copy);
-      }
+      fetch(`http://127.0.0.1:5000/enroll/${props.studentId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: props.id,
+        })
+      })
+      .then(response => response.json())
+      .then (data => window.location.reload()) 
+    }
 
     return (
         <div className='EnrolledCourse'>
             <img src={courselogo} alt="Course Logo"/>
             <p>Course Name: {props.name}</p>
             <p>Credit Hours: 3</p>
-            <button onClick={handleDrop}>Drop Course</button>
+            <button onClick={() => handleDrop()}>Drop Course</button>
         </div>
     );
 }

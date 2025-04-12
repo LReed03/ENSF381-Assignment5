@@ -37,15 +37,9 @@ def enroll(student_id):
 
 @app.route('/drop/<student_id>', methods=['DELETE'])
 def drop(student_id):
-    data = request.get_json()
-    for e in students:
-        if e['id'] == int(student_id):
-            if data in e['enrolled_courses']:
-                e["enrolled_courses"].remove(data)
-                return jsonify({"result": "Successfully dropped class."})
-            else:
-                return jsonify({"result": "You're not enrolled in this course!"})
-    return jsonify({"result": "Student not found"}), 404
+    global students
+    students = [student for student in students if student['id'] != student_id]
+    return jsonify({"message": "Person deleted successfully"})
 
 
 @app.route('/Courses', methods=['GET'])
@@ -73,7 +67,7 @@ def login():
     for student in students:
         if student["username"] == username:
             if student["password"] == password:
-                return jsonify({"message": "Login successful!"}), 200
+                return jsonify({"message": "Login successful!", "studentId": student['id']}), 200
             else:
                 return jsonify({"message": "Incorrect password."}), 401
 
