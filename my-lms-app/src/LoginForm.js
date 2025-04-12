@@ -4,6 +4,7 @@ import AuthMessage from './AuthMessage';
 
 import './LoginForm.css';
 import { useNavigate } from 'react-router-dom';
+import { StudentContext } from './App';
 
 export const AuthContext = createContext();
 
@@ -12,6 +13,7 @@ function LoginForm() {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
+    const { studentId, setStudentId } = useContext(StudentContext);
 
     const navigate = useNavigate();
 
@@ -34,12 +36,9 @@ function LoginForm() {
             setMessageType(response.ok ? "success" : "error");
     
             if (response.ok) {
+                setStudentId(data.studentId)
                 setTimeout(() => {
-                    navigate('/Courses', {
-                        state: {
-                            studentId : data.studentId
-                        }
-                    })
+                    navigate('/Courses',)
                 }, 2000);
             }
         } 

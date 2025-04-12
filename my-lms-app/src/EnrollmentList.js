@@ -8,6 +8,9 @@ function EnrollmentList(props) {
     const {setEnrolledCourses, enrolledCourses} = useContext(enrolledCourseContext)
     const studentId = props.studentId;
     async function fetchCourses() {
+        if (studentId === null){
+            return <p>No enrolled courses yet.</p>;
+        }
         try {
             const response = await fetch(`http://127.0.0.1:5000/student_courses/${studentId}` , {
                 method: 'GET'

@@ -2,12 +2,13 @@ import {React, useState, useContext, useEffect} from 'react';
 import courselogo from './images/course2.jpg';
 import './CourseItem.css'
 import {enrolledCourseContext} from './CoursesPage';
+import { StudentContext } from './App'; 
 
 function CourseItem(props) {
 
     const [showDescription, setShowDescription] = useState(false);
     const {setEnrolledCourses, enrolledCourses} = useContext(enrolledCourseContext)
-
+    const {studentId, setStudentId} = useContext(StudentContext);
     function hover(){
         setShowDescription(true);
     }
@@ -17,8 +18,8 @@ function CourseItem(props) {
     }
 
     async function addClass() {
-      console.log(props.studentId);
-      const response = await fetch(`http://127.0.0.1:5000/enroll/${props.studentId}`, {
+      console.log(studentId);
+      const response = await fetch(`http://127.0.0.1:5000/enroll/${studentId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

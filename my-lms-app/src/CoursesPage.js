@@ -5,14 +5,15 @@ import Footer from './Footer';
 
 import CourseCatalog from './CourseCatalog';
 import EnrollmentList from './EnrollmentList';
-import { useLocation } from 'react-router-dom';
+import { StudentContext } from './App'; 
+
 
 export const enrolledCourseContext = createContext();
 
 function CoursesPage() {
     const [enrolledCourses, setEnrolledCourses] = useState([])
-    const location = useLocation();
-    const studentId = location.state.studentId
+    const {studentId} = useContext(StudentContext);
+
     const [courses, setCourses] = useState([]);
     async function fetchCourses() {
         const backendEndpoint = 'http://127.0.0.1:5000/Courses'
