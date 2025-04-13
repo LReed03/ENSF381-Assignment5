@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
+import random
 
 students = [{
     "id": 1,
@@ -113,7 +114,17 @@ def register():
 
     return jsonify({"message": "User registered successfully."}), 200
 
-
+@app.route('/testimonial', methods=['GET'])
+def testimonial():
+    with open('data/testimonials.json', 'r') as f:
+        testimonials = json.load(f)
+        randint1 = random.randint(0,len(testimonials) - 1)
+        while(True):
+            randint2 = random.randint(0,len(testimonials) - 1)
+            if randint2 != randint1:
+                break
+        data = {'testimonial1': testimonials[randint1], 'testimonial2': testimonials[randint2]}
+        return jsonify(data)
 
 if __name__ == '__main__':
     app.run()

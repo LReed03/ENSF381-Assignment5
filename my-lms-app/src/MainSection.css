@@ -7,6 +7,10 @@ div#mainSection {
     max-width: 90%;
 }
 
+div#mainSection h1 {
+    color: #004080;
+}
+
 div#mainSection h2 {
     color: #004080;
 }
